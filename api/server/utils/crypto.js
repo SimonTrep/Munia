@@ -1,6 +1,12 @@
 require('dotenv').config();
 
 const { webcrypto } = require('node:crypto');
+
+// Valider les variables d'environnement
+if (!process.env.CREDS_KEY || !process.env.CREDS_IV) {
+  throw new Error('CREDS_KEY and CREDS_IV must be defined in the .env file');
+}
+
 const key = Buffer.from(process.env.CREDS_KEY, 'hex');
 const iv = Buffer.from(process.env.CREDS_IV, 'hex');
 const algorithm = 'AES-CBC';

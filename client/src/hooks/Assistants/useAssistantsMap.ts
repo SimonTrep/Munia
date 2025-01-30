@@ -9,9 +9,14 @@ export default function useAssistantsMap({
   isAuthenticated: boolean;
 }): TAssistantsMap | undefined {
   const { data: assistants = {} } = useListAssistantsQuery(EModelEndpoint.assistants, undefined, {
-    select: (res) => mapAssistants(res.data),
+    select: (res) => {
+      console.log('API Response:', res); // Log the raw response
+      return mapAssistants(res.data);
+    },
     enabled: isAuthenticated,
   });
+  
+  
   const { data: azureAssistants = {} } = useListAssistantsQuery(
     EModelEndpoint.azureAssistants,
     undefined,

@@ -21,13 +21,21 @@ import NavToggle from './NavToggle';
 import NewChat from './NewChat';
 import { cn } from '~/utils';
 import store from '~/store';
+import NavLink from './NavLink';
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import AssistantsIcon from '../../../public/assets/assistants.png'; // Import the PNG icon
 
 const Nav = ({
   navVisible,
   setNavVisible,
+  onViewChange, // Callback to update view
 }: {
   navVisible: boolean;
   setNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  onViewChange: (view: 'chat' | 'assistants') => void; // Function to change the view
+
 }) => {
   const localize = useLocalize();
   const { isAuthenticated } = useAuthContext();
@@ -113,7 +121,6 @@ const Nav = ({
       toggleNavVisible();
     }
   };
-
   return (
     <>
       <div
@@ -145,6 +152,17 @@ const Nav = ({
                   aria-label={localize('com_ui_chat_history')}
                   className="flex h-full w-full flex-col px-3 pb-3.5"
                 >
+                 {/*  <NavLink
+                    svg={() => <img src={AssistantsIcon} alt="Assistants Icon" className="w-5 h-5" />}
+                    text="Assistants"
+                    clickHandler={undefined} // No need for a click handler
+                    className="hover:bg-gray-200"
+                  >
+                    <Link to="assistants" className="w-full flex items-center gap-2 text-text-primary">
+                      <img src={AssistantsIcon} alt="Assistants Icon" className="w-5 h-5" />
+                      <span>Assistants</span>
+                    </Link>
+                  </NavLink> */}
                   <div
                     className={cn(
                       '-mr-2 flex-1 flex-col overflow-y-auto pr-2 transition-opacity duration-500',
@@ -189,6 +207,20 @@ const Nav = ({
                     )}
                   </div>
                   <AccountSettings />
+                  {/* Assistants View Link */}
+                  <NavLink
+                    svg={() => <img src={AssistantsIcon} alt="Assistants Icon" className="w-5 h-5" />}
+                    text="Assistants"
+                    clickHandler={() => onViewChange('assistants')} // Switch to assistants view
+                    className="hover:bg-gray-200"
+                  />
+                  {/* Chat View Link */}
+                  <NavLink
+                    svg={() => <div className="w-5 h-5 bg-gray-500" />} // Example placeholder icon
+                    text="Chat"
+                    clickHandler={() => onViewChange('chat')} // Switch to chat view
+                    className="hover:bg-gray-200"
+                  />
                 </nav>
               </div>
             </div>

@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -12,8 +14,10 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./.pnpm/@types"],
     "isolatedModules": true,
     "noImplicitAny": false,
+    "preserveSymlinks": true,
     "noEmit": false,
     "declaration": true,
     "declarationDir": "./types",
@@ -27,8 +31,8 @@
     }
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],
-  "exclude": ["node_modules", "vite.config.ts"],
-  "include": ["src/**/*", "test/**/*", "../e2e/**/*", "setupTests.js", "env.d.ts"],
+  "exclude": ["node_modules", "dist", "vite.config.ts", "**/*.js"],
+  "include": ["src/**/*", "test/**/*.ts", "test/**/*.tsx", "env.d.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

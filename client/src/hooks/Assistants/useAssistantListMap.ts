@@ -1,15 +1,19 @@
-import { useMemo } from 'react';
-import { EModelEndpoint } from 'librechat-data-provider';
 import type { AssistantListResponse, AssistantsEndpoint } from 'librechat-data-provider';
+import { EModelEndpoint } from 'librechat-data-provider';
+import { useMemo } from 'react';
 import type { AssistantListItem } from '~/common';
 import { useListAssistantsQuery } from '~/data-provider';
 
 const selectAssistantsResponse = (res: AssistantListResponse): AssistantListItem[] =>
-  res.data.map(({ id, name, metadata, model }) => ({
+  res.data.map(({ id, name, metadata, model, description }) => ({
     id,
-    name: name ?? '',
-    metadata,
+    name: name ?? 'Unnamed Assistant',
+    metadata: {
+      ...metadata,
+      icon: metadata?.icon ?? '/images/assistants.png', // Default icon
+    },
     model,
+    description: description ?? 'No description available', // Default description
   }));
 
 export default function useAssistantListMap<T = AssistantListItem[] | null>(

@@ -5,6 +5,7 @@ const cors = require('cors');
 const axios = require('axios');
 const express = require('express');
 const compression = require('compression');
+const dataProvider = require('librechat-data-provider');
 const passport = require('passport');
 const mongoSanitize = require('express-mongo-sanitize');
 const fs = require('fs');
